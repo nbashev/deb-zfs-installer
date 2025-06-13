@@ -1,0 +1,21 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "features": {},
+    "postCreateCommand": "echo 'Welcome to your development container!'",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "naumovs.color-highlight",
+                "kamikillerto.vscode-colorize",
+                "dbaeumer.vscode-eslint",
+                "Zignd.html-css-class-completion",
+                "yzhang.markdown-all-in-one",
+                "DavidAnson.vscode-markdownlint",
+                "christian-kohler.npm-intellisense",
+                "okitavera.vscode-nunjucks-formatter",
+                "bradlc.vscode-tailwindcss",
+                "GitHub.copilot"
+            ]
+        }
+    }
+ }
