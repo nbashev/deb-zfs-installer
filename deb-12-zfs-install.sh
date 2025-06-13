@@ -44,7 +44,7 @@ for arg in "$@"; do
             show_help
             ;;
         --version)
-            echo "Debian 12 ZFS Root Installer v1.0.2"
+            echo "Debian 12 ZFS Root Installer v1.0.3"
             exit 0
             ;;
         --test)
@@ -703,8 +703,7 @@ chroot /target /bin/systemctl enable zfs-import-bpool.service
 # Configure ZFS mount order
 echo "Configuring ZFS mount order for boot..."
 chroot /target mkdir -p /etc/zfs/zfs-list.cache
-chroot /target zfs set cachefile=/etc/zfs/zpool.cache $BPOOL
-chroot /target zfs set cachefile=/etc/zfs/zpool.cache $ZPOOL
+# Setting cachefile is only valid for pools, not datasets
 chroot /target zpool set cachefile=/etc/zfs/zpool.cache $BPOOL
 chroot /target zpool set cachefile=/etc/zfs/zpool.cache $ZPOOL
 

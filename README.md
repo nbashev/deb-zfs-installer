@@ -17,6 +17,11 @@ By using this script, you acknowledge that:
 
 ## Recent Updates
 
+### Version 1.0.3 (June 13, 2025)
+
+- Fixed ZFS cachefile property setting (using zpool set instead of zfs set)
+- Fixed an issue that caused errors during boot configuration
+
 ### Version 1.0.2 (June 13, 2025)
 
 - Added interactive hostname configuration with FQDN support
@@ -152,6 +157,10 @@ The installer automates the following processes:
 - **Variable Files**: Separate datasets for `/var` subdirectories
 - **Performance**: Tuned compression and other ZFS properties for best performance
 - **Boot Support**: Proper GRUB integration for ZFS boot
+
+## Known Issues
+
+- Install script does not seem to be able to unmount properly in the live installer. Rebooting, worked as expected though so ¯\_(ツ)_/¯
 
 ## Troubleshooting
 
