@@ -255,8 +255,8 @@ fi
 DEBRELEASE=$(head -n1 /etc/debian_version)
 case $DEBRELEASE in
     12*)
-        echo "deb http://deb.debian.org/debian/ bookworm contrib non-free-firmware" >/etc/apt/sources.list.d/contrib-non-free.list
-        test -f /var/lib/apt/lists/deb.debian.org_debian_dists_bookworm_non-free-firmware_binary-amd64_Packages || apt-get update
+        echo "deb http://deb.debian.org/debian/ ${TARGETDIST} contrib non-free-firmware" >/etc/apt/sources.list.d/contrib-non-free.list
+        test -f /var/lib/apt/lists/deb.debian.org_debian_dists_${TARGETDIST}_non-free-firmware_binary-amd64_Packages || apt-get update
         if [ ! -d /usr/share/doc/zfs-dkms ]; then NEED_PACKAGES+=(zfs-dkms); fi
         ;;
     *)
@@ -381,14 +381,14 @@ debootstrap --include=openssh-server,console-setup,locales,linux-headers-amd64,l
 # Configure APT sources
 echo "Configuring APT sources..."
 cat << EOF > /target/etc/apt/sources.list
-deb http://deb.debian.org/debian bookworm main contrib non-free-firmware
-deb-src http://deb.debian.org/debian bookworm main contrib non-free-firmware
+deb http://deb.debian.org/debian ${TARGETDIST} main contrib non-free-firmware
+deb-src http://deb.debian.org/debian ${TARGETDIST} main contrib non-free-firmware
 
-deb http://deb.debian.org/debian-security bookworm-security main contrib non-free-firmware
-deb-src http://deb.debian.org/debian-security bookworm-security main contrib non-free-firmware
+deb http://deb.debian.org/debian-security ${TARGETDIST}-security main contrib non-free-firmware
+deb-src http://deb.debian.org/debian-security ${TARGETDIST}-security main contrib non-free-firmware
 
-deb http://deb.debian.org/debian bookworm-updates main contrib non-free-firmware
-deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free-firmware
+deb http://deb.debian.org/debian ${TARGETDIST}-updates main contrib non-free-firmware
+deb-src http://deb.debian.org/debian ${TARGETDIST}-updates main contrib non-free-firmware
 EOF
 
 # Configure hostname
