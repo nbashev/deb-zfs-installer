@@ -19,8 +19,19 @@ Options:
 This script installs Debian Bookworm with ZFS root filesystem.
 It provides options for RAID configuration and ZFS encryption.
   
-Caution: This script will DESTROY ALL DATA on selected disks!
-Make sure you have backups before proceeding.
+!!! WARNING !!!
+==============================================================================
+THIS SCRIPT WILL PERMANENTLY DESTROY ALL DATA ON THE SELECTED DISKS!
+
+- ALL existing filesystems, partitions, and data will be ERASED without recovery possibility
+- You MUST have backups of any important data before proceeding
+- You accept FULL RESPONSIBILITY for any data loss or system damage that may occur
+
+DISCLAIMER: The author(s) of this script are not responsible for any damages,
+data loss, or other negative consequences resulting from the use of this software.
+
+USE AT YOUR OWN RISK!
+==============================================================================
 
 EOF
     exit 0
@@ -43,12 +54,35 @@ for arg in "$@"; do
     esac
 done
 
-echo "Script started with set -e enabled and error trap"
 #
 # debian-zfs-installer.sh
 #
 # Install Debian GNU/Linux to a native ZFS root filesystem
 #
+
+# Display warning message
+cat << 'EOF'
+ ██╗    ██╗ █████╗ ██████╗ ███╗   ██╗██╗███╗   ██╗ ██████╗ ██╗
+ ██║    ██║██╔══██╗██╔══██╗████╗  ██║██║████╗  ██║██╔════╝ ██║
+ ██║ █╗ ██║███████║██████╔╝██╔██╗ ██║██║██╔██╗ ██║██║  ███╗██║
+ ██║███╗██║██╔══██║██╔══██╗██║╚██╗██║██║██║╚██╗██║██║   ██║╚═╝
+ ╚███╔███╔╝██║  ██║██║  ██║██║ ╚████║██║██║ ╚████║╚██████╔╝██╗
+  ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝
+════════════════════════════════════════════════════════════════════
+             THIS SCRIPT WILL DESTROY ALL DATA ON 
+                      THE SELECTED DISKS
+════════════════════════════════════════════════════════════════════
+  The author(s) of this script accept NO RESPONSIBILITY for any
+  damages or data loss that may occur from its use.
+  
+  USE AT YOUR OWN RISK!
+  
+  Press Ctrl+C now to abort if you're not sure what you're doing.
+════════════════════════════════════════════════════════════════════
+EOF
+
+echo "Script started with set -e enabled and error trap"
+sleep 5  # Give the user 5 seconds to read the warning and potentially abort
 
 ### Static settings
 
@@ -233,8 +267,8 @@ fi
 ### Final confirmation
 # Save current state of errexit flag to restore it later
 set +e
-whiptail --backtitle "Debian ZFS Installer" --title "Confirmation" \
-    --yesno "\nAre you sure to destroy ZFS pools '$BPOOL' and '$ZPOOL' (if existing), wipe all data of disks '${DISKS[*]}' and create a RAID '$RAIDLEVEL'?\n" 20 74
+whiptail --backtitle "Debian ZFS Installer" --title "⚠️ FINAL WARNING ⚠️" \
+    --yesno "\nAre you ABSOLUTELY SURE you want to:\n\n1. DESTROY ALL DATA on disks: '${DISKS[*]}'\n2. Erase ZFS pools '$BPOOL' and '$ZPOOL' (if existing)\n3. Create a new $RAIDLEVEL configuration\n\nTHIS ACTION CANNOT BE UNDONE!\n\nBy selecting 'Yes', you accept full responsibility for any data loss.\n" 20 74
 CONFIRM_RESULT=$?
 # Restore errexit flag
 set -e

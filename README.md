@@ -2,6 +2,19 @@
 
 This guide walks you through installing Debian with ZFS as the root filesystem using our installer script. The script automates the complex process of setting up a Debian system with native ZFS support.
 
+## ⚠️ WARNING ⚠️
+
+### THIS SCRIPT WILL PERMANENTLY DESTROY ALL DATA ON THE SELECTED DISKS
+
+By using this script, you acknowledge that:
+
+- All existing filesystems, partitions, and data on selected disks will be erased without recovery possibility
+- You have backed up any important data before proceeding
+- You understand the risks involved with disk partitioning and filesystem operations
+- You accept full responsibility for any data loss or system damage that may occur
+
+**DISCLAIMER:** The author(s) of this script are not responsible for any damages, data loss, or other negative consequences resulting from the use of this software. Use at your own risk.
+
 ## Recent Updates
 
 ### Version 1.0.2 (June 13, 2025)
